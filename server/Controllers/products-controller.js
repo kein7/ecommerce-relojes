@@ -11,7 +11,7 @@ export class ProductsController{
     getById = async (req, res) => {
         const {id} = req.params
         const product = await this.productModel.getById({ id })
-        if (movie) return res.json(product)
+        if (product) return res.json(product)
         res.status(404).json({ message: 'Product not found'})
     }
 

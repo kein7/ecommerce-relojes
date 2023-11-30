@@ -9,8 +9,7 @@ import {
   IconButton
 } from '@mui/material'
 import axios from 'axios'
-import { ProductContent, mapDto } from './ProductContent'
-import { Link, BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ProductContent, mapDto } from '../Products/ProductContent'
 
 export default function Feed() {
   const [products, setProducts] = useState()
@@ -39,12 +38,10 @@ export default function Feed() {
         }}
       >
         {products?.map((product, key) => (
-          <Link to={`/product/${products.id}`}>
-            <ProductContent
-              key={`product-${key}`}
-              product={product}
-            ></ProductContent>
-          </Link>
+          <ProductContent
+            key={`product-${key}`}
+            product={product}
+          ></ProductContent>
         ))}
       </Box>
     </Box>

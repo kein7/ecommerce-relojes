@@ -21,7 +21,7 @@ export class ProductsModel {
 
   static async getById({ id }) {
     const [products] = await connection.query(
-      `SELECT BIN_TO_UUID(product.id) id, product.name, product.description, product.SKU, product.price, product.size, brand.name AS brand, product_category.name AS category, product_inventory.quantity 
+      `SELECT BIN_TO_UUID(product.id) id, product.name, product.description, product.SKU AS sku, product.price, product.size, brand.name AS brand, product_category.name AS category, product_inventory.quantity AS stock 
       FROM product JOIN brand ON product.brand_id = brand.id JOIN product_category ON product.category_ID = product_category.id JOIN product_inventory ON product.inventory_ID = product_inventory.id 
       WHERE product.id = UUID_TO_BIN(?);`,
       [id]
