@@ -25,43 +25,38 @@ export function mapDto(dto) {
 
 export function ProductContent({ product }) {
   return (
-    
+    <Box
+      component={Link}
+      to={`/product/${product.id}`}
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        m: { xs: 2, md: 1, lg: 2 },
+        p: { xs: 2.5, md: 3, lg: 3 },
+        color: '#C1C1C1'
+      }}
+      align="center"
+      style={{ textDecoration: 'none' }}
+    >
       <Box
+        name="Top"
+        component="img"
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          width: { xs: 120, sm: 150, md: 200 },
-          height: { xs: 130, sm: 130, md: 130 },
-          m: { xs: 2, md: 1, lg: 2 },
-          p: { xs: 2.5, md: 3, lg: 3 },
-          color: '#C1C1C1'
+          height: 200,
+          width: 200,
+          maxHeight: { xs: 200, md: 400, lg: 500 },
+          maxWidth: { xs: 200, md: 400, lg: 500 }
         }}
-      >
-        <Link to={`/product/${product.id}`}>
-        <Box name="Top" sx={{}}>
-          <Box
-            component="img"
-            sx={{
-              height: 200,
-              width: 200,
-              maxHeight: { xs: 200, md: 400, lg: 500 },
-              maxWidth: { xs: 200, md: 400, lg: 500 }
-            }}
-            src={reloj_img}
-            alt="reloj"
-          ></Box>
-        </Box>
-        <Box name="Bottom" sx={{ color: 'black' }}  >
-          <Box sx={{ justifyContent: 'center' }} align="center">
-            <Typography>{product.name}</Typography>
-            <Typography>{product.brand}</Typography>
-            <Typography>{product.price}</Typography>
-          </Box>
-        </Box>
-        </Link>
+        src={reloj_img}
+        alt="reloj"
+      ></Box>
+      <Box name="Bottom" sx={{ color: 'black', justifyContent: 'center' }}>
+        <Typography>{product.name}</Typography>
+        <Typography>{product.brand}</Typography>
+        <Typography>{product.price}</Typography>
       </Box>
-    
+    </Box>
   )
 }

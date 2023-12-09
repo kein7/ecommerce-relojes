@@ -24,15 +24,13 @@ export default function Feed() {
   }, [])
 
   return (
-    <Box id="feed-products">
+    <Box id="feed-products" sx={{mt:20}}>
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center',
           flexDirection: { xs: 'column', md: 'row' },
           flexWrap: { md: 'wrap' },
           justifyContent: 'center',
-          mt: { md: 20 },
           ml: { xs: 1 },
           mr: { xs: 1 }
         }}

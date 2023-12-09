@@ -1,12 +1,14 @@
 import z from 'zod'
 const usersSchema = z.object({
-    username: z.string({
-        invalid_type_error: 'Username must be a string',
-        required_error: 'Username title is required'
+    id: z.string({
+        invalid_type_error: 'Email must be a string',
+        required_error: 'Id is required'
     }),
-    first_name: z.string(),
-    last_name: z.string(),
-    password: z.string().min(7, {message: 'Must be 5 characters or longer'}).max(20, {message: 'Must be 20 or fewer characters long'}),
+    email: z.string({
+        invalid_type_error: 'Email must be a string',
+        required_error: 'Email is required'
+    }),
+    password: z.string().min(6, {message: 'Must be 6 characters or longer'}).max(30, {message: 'Must be 30 or fewer characters long'}),
     telephone: z.number().min(6).max(15),
     created_at: z.date(),
     modified_at: z.date()
@@ -18,4 +20,8 @@ export function validateUser (input) {
 
 export function validatePartialUser (input) {
     return usersSchema.partial().safeParse(input)
+}
+
+export function validateCreateUser (input) {
+    return usersSchema.partial({id: true, telephone: true, created_at: true, modified_at: true}).safeParse(input)
 }

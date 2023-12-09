@@ -8,6 +8,8 @@ import ProductPage from './components/Products/ProductPage'
 import ShoppingCart from './components/ShoppingCart/ShoppingCart'
 import UserPage from './components/Users/UserPage'
 import WishList from './components/WishList'
+import Register from './components/Users/Register'
+import Login from './components/Users/Login'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -55,6 +57,8 @@ export default function App() {
               />
             }
           ></Route>
+          <Route path='/register' Component={Register}></Route>
+          <Route path='/login' Component={Login}></Route>
           <Route path="/user/index" Component={UserPage}></Route>
           <Route path="/wishlist" Component={WishList}></Route>
         </Routes>

@@ -101,11 +101,13 @@ export default function ShoppingCart({
               </Box>
             ))}
             <Typography>Total: ${total}</Typography>
-            <Button>Comprar</Button>
+            <Button>Ir a pago</Button>
             <Button onClick={() => onCleanCart()}>Limpiar todo</Button>
           </Box>
         ) : (
-          <Box>Carrito vacio</Box>
+          <Box>
+            <Typography>Carrito vacio</Typography>
+          </Box>
         )}
       </Box>
     </Box>

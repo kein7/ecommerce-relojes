@@ -49,7 +49,7 @@ export default function ProductPage({
 
   if (!product) {
     return (
-      <Box>
+      <Box sx={{mt:20}}>
         <Typography>Product not found</Typography>
       </Box>
     )

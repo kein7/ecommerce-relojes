@@ -29,15 +29,16 @@ export default function NavBar({
           <IconButton color="inherit">Mujer</IconButton>
           <IconButton color="inherit">Hombre</IconButton>
           <IconButton color="inherit">Niños</IconButton>
-          <Box name="Shop Logo"></Box>
-          <Link to="/" >
-            <Typography
-              align="center"
-              sx={{ ml: 80, fontSize: 40, color: 'white'}}
-            >
-              Shop
-            </Typography>
-          </Link>
+
+          <Typography
+            component={Link}
+            to="/"
+            align="center"
+            sx={{ ml: 80, fontSize: 40, color: 'white' }}
+            style={{ textDecoration: 'none' }}
+          >
+            Shop
+          </Typography>
 
           <Typography sx={{ flexGrow: 1 }}></Typography>
 
