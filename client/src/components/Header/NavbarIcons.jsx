@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { useCart } from '../../hooks/useCart.jsx'
 import {
   AppBar,
   Box,
@@ -24,27 +25,8 @@ const navbarIcons = [
   { name: 'Lang', icon: faGlobe, url: '' }
 ]
 
-export default function NavBarIcons({
-  allProducts,
-  setAllProducts,
-  total,
-  countProducts,
-  setCountProducts,
-  setTotal
-}) {
-  const onDeleteProduct = (product) => {
-    const results = allProducts.filter((item) => item.id !== product.id)
-
-    setTotal(total - product.price * product.quantity)
-    setCountProducts(countProducts - product.quantity)
-    setAllProducts(results)
-  }
-
-  const onCleanCart = () => {
-    setAllProducts([])
-    setTotal(0)
-    setCountProducts(0)
-  }
+export default function NavBarIcons() {
+  const { deleteProduct, countProducts, total, cart } = useCart()
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', mr: 2 }}>
@@ -58,37 +40,34 @@ export default function NavBarIcons({
             <Tooltip
               title={
                 <Box name="cart">
-                  {allProducts.length ? (
+                  {cart.length ? (
                     <Box>
-                      {allProducts.map((product, index) => (
-                        <Box
-                          key={index}
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            m: 2
-                          }}
+                    {cart.map((product, index) => (
+                      <Box
+                        key={index}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          m: 2
+                        }}
+                      >
+                        <Typography>{product.quantity}</Typography>
+                        <Typography sx={{ ml: 1 }}>{product.name}</Typography>
+                        <Typography sx={{ ml: 1, mr: 1 }}>{'$' + product.price}</Typography>
+                        <Button
+                          sx={{ height: 1.05, width: 1.05 }}
+                          onClick={() => deleteProduct(product)}
                         >
-                          <Typography>{product.quantity}</Typography>
-                          <Typography sx={{ ml: 1 }}>{product.name}</Typography>
-                          <Typography sx={{ ml: 1, mr: 1 }}>
-                            {'$' + product.price}
-                          </Typography>
-                          <Button
-                            sx={{ height: 1.05, width: 1.05 }}
-                            onClick={() => onDeleteProduct(product)}
-                          >
-                            <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
-                          </Button>
-                        </Box>
-                      ))}
-                      <Box sx={{ m: 2 }}>
-                        <Typography>Total: {total}</Typography>
+                          <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
+                        </Button>
                       </Box>
+                    ))}
+                    <Box sx={{ m: 2 }}>
+                      <Typography>Total: {total}</Typography>
                     </Box>
+                  </Box>
                   ) : (
                     <Typography>
-                      
                       <Box>Carrito vacio</Box>
                     </Typography>
                   )}
@@ -106,7 +85,7 @@ export default function NavBarIcons({
                   key={index}
                   m={20}
                 ></FontAwesomeIcon>
-                <Typography sx={{ml:1}}>{countProducts}</Typography>
+                <Typography sx={{ ml: 1 }}>{countProducts}</Typography>
               </IconButton>
             </Tooltip>
           ) : (

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useCart } from '../../hooks/useCart.jsx'
 import {
   AppBar,
   Box,
@@ -12,58 +13,18 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 
-export default function ShoppingCart({
-  allProducts,
-  setAllProducts,
-  total,
-  countProducts,
-  setCountProducts,
-  setTotal
-}) {
-  const onDeleteProduct = (product) => {
-    const results = allProducts.filter((item) => item.id !== product.id)
+export default function ShoppingCart() {
+  const { addToCart, minProduct, deleteProduct, clearCart, sumProduct, countProducts, total, cart } = useCart()
 
-    setTotal(total - product.price * product.quantity)
-    setCountProducts(countProducts - product.quantity)
-    setAllProducts(results)
-  }
-
-  const onSumProduct = (product) => {
-    if (allProducts.find((item) => item.id === product.id)) {
-      const products = allProducts.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-      setTotal(total + product.price * 1)
-      setCountProducts(countProducts + 1)
-      return setAllProducts([...products])
-    }
-  }
-
-  const onMinProduct = (product) => {
-    let products = allProducts.map((item) =>
-      item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
-    )
-
-    setTotal(total - product.price * 1)
-    setCountProducts(countProducts - 1)
-
-    return setAllProducts(products)
-  }
-
-  const onCleanCart = () => {
-    setAllProducts([])
-    setTotal(0)
-    setCountProducts(0)
-  }
   return (
     <Box align="center">
       <Typography variant="h1" sx={{ mt: 20, fontSize: 50 }}>
         Carrito de compras
       </Typography>
       <Box name="List products">
-        {allProducts.length ? (
+        {cart.length ? (
           <Box>
-            {allProducts.map((product, index) => (
+            {cart.map((product, index) => (
               <Box
                 key={index}
                 sx={{
@@ -79,7 +40,7 @@ export default function ShoppingCart({
                 <Typography sx={{ ml: 1, mr: 1 }}>
                   {'$' + product.price}
                 </Typography>
-                <Button onClick={() => onSumProduct(product)}>
+                <Button onClick={() => sumProduct(product)}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Button>
 
@@ -87,22 +48,22 @@ export default function ShoppingCart({
                   onClick={() =>
                     `${
                       product.quantity !== 1
-                        ? onMinProduct(product)
-                        : onDeleteProduct(product)
+                        ? minProduct(product)
+                        : deleteProduct(product)
                     }`
                   }
                 >
                   <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
                 </Button>
 
-                <Button onClick={() => onDeleteProduct(product)}>
+                <Button onClick={() => deleteProduct(product)}>
                   <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
                 </Button>
               </Box>
             ))}
             <Typography>Total: ${total}</Typography>
             <Button>Ir a pago</Button>
-            <Button onClick={() => onCleanCart()}>Limpiar todo</Button>
+            <Button onClick={() => clearCart()}>Limpiar todo</Button>
           </Box>
         ) : (
           <Box>

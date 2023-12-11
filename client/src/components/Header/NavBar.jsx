@@ -14,14 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import NavbarIcons from './NavbarIcons'
 
-export default function NavBar({
-  allProducts,
-  setAllProducts,
-  total,
-  countProducts,
-  setCountProducts,
-  setTotal
-}) {
+export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar>
@@ -64,14 +57,7 @@ export default function NavBar({
               sx={{ color: 'white' }}
             />
           </Box>
-          <NavbarIcons
-            allProducts={allProducts}
-            setAllProducts={setAllProducts}
-            total={total}
-            setTotal={setTotal}
-            countProducts={countProducts}
-            setCountProducts={setCountProducts}
-          ></NavbarIcons>
+          <NavbarIcons></NavbarIcons>
         </Toolbar>
 
         <Toolbar>

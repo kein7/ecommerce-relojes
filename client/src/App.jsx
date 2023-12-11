@@ -10,58 +10,26 @@ import UserPage from './components/Users/UserPage'
 import WishList from './components/WishList'
 import Register from './components/Users/Register'
 import Login from './components/Users/Login'
+import CartProvider from './context/CartContext.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function App() {
-  const [allProducts, setAllProducts] = useState([])
-  const [total, setTotal] = useState(0)
-  const [countProducts, setCountProducts] = useState(0)
-
   return (
     <div>
       <Router>
-        <NavBar
-          allProducts={allProducts}
-          setAllProducts={setAllProducts}
-          total={total}
-          setTotal={setTotal}
-          countProducts={countProducts}
-          setCountProducts={setCountProducts}
-        ></NavBar>
-        <Routes>
-          <Route path="/" element={<Feed />}></Route>
-          <Route
-            path="/product/:id"
-            element={
-              <ProductPage
-                allProducts={allProducts}
-                setAllProducts={setAllProducts}
-                total={total}
-                setTotal={setTotal}
-                countProducts={countProducts}
-                setCountProducts={setCountProducts}
-              />
-            }
-          ></Route>
-          <Route
-            path="/shopping-cart"
-            element={
-              <ShoppingCart
-                allProducts={allProducts}
-                setAllProducts={setAllProducts}
-                total={total}
-                setTotal={setTotal}
-                countProducts={countProducts}
-                setCountProducts={setCountProducts}
-              />
-            }
-          ></Route>
-          <Route path='/register' Component={Register}></Route>
-          <Route path='/login' Component={Login}></Route>
-          <Route path="/user/index" Component={UserPage}></Route>
-          <Route path="/wishlist" Component={WishList}></Route>
-        </Routes>
+        <CartProvider>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Feed />}></Route>
+            <Route path="/product/:id" element={<ProductPage />}></Route>
+            <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
+            <Route path="/register" Component={Register}></Route>
+            <Route path="/login" Component={Login}></Route>
+            <Route path="/user/index" Component={UserPage}></Route>
+            <Route path="/wishlist" Component={WishList}></Route>
+          </Routes>
+        </CartProvider>
       </Router>
     </div>
   )

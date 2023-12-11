@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
+import { useCart } from '../../hooks/useCart.jsx'
 import {
   AppBar,
   Box,
@@ -27,16 +28,10 @@ export function mapDto(dto) {
   }
 }
 
-export default function ProductPage({
-  allProducts,
-  setAllProducts,
-  total,
-  countProducts,
-  setCountProducts,
-  setTotal
-}) {
+export default function ProductPage() {
   const { id } = useParams()
   const [product, setProduct] = useState()
+  const { addToCart, cart } = useCart()
 
   async function getProducts() {
     const { data } = await axios.get(`http://localhost:3000/products/${id}`)
@@ -49,27 +44,11 @@ export default function ProductPage({
 
   if (!product) {
     return (
-      <Box sx={{mt:20}}>
+      <Box sx={{ mt: 20 }}>
         <Typography>Product not found</Typography>
       </Box>
     )
   }
-
-  const onAddProduct = (product) => {
-    if (allProducts.find((item) => item.id === product.id)) {
-      const products = allProducts.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-      setTotal(total + product.price * product.quantity)
-      setCountProducts(countProducts + product.quantity)
-      return setAllProducts([...products])
-    }
-    setTotal(total + product.price * product.quantity)
-    setCountProducts(countProducts + product.quantity)
-    setAllProducts([...allProducts, product])
-  }
-
-  console.log(allProducts)
 
   return (
     <Box
@@ -94,7 +73,8 @@ export default function ProductPage({
         <Typography>{product.price}</Typography>
         <Typography>{product.description}</Typography>
         <Typography>Stock: {product.stock}</Typography>
-        <Button sx={{ mt: 2 }} onClick={() => onAddProduct(product)}>
+        {}
+        <Button sx={{ mt: 2 }} onClick={() => addToCart(product)}>
           Agregar a carrito
         </Button>
       </Box>
