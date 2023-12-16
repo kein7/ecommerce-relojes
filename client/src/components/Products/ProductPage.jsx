@@ -31,7 +31,7 @@ export function mapDto(dto) {
 export default function ProductPage() {
   const { id } = useParams()
   const [product, setProduct] = useState()
-  const { addToCart, cart } = useCart()
+  const { handleAddToCart } = useCart()
 
   async function getProducts() {
     const { data } = await axios.get(`http://localhost:3000/products/${id}`)
@@ -74,7 +74,7 @@ export default function ProductPage() {
         <Typography>{product.description}</Typography>
         <Typography>Stock: {product.stock}</Typography>
         {}
-        <Button sx={{ mt: 2 }} onClick={() => addToCart(product)}>
+        <Button sx={{ mt: 2 }} onClick={() => handleAddToCart(product)}>
           Agregar a carrito
         </Button>
       </Box>

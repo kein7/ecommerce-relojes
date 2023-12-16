@@ -14,7 +14,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
 
 export default function ShoppingCart() {
-  const { addToCart, minProduct, deleteProduct, clearCart, sumProduct, countProducts, total, cart } = useCart()
+  const { handleMinProduct, handleRemoveFromCart, handleClearCart, handleSumProduct, total, cart } = useCart()
 
   return (
     <Box align="center">
@@ -40,7 +40,7 @@ export default function ShoppingCart() {
                 <Typography sx={{ ml: 1, mr: 1 }}>
                   {'$' + product.price}
                 </Typography>
-                <Button onClick={() => sumProduct(product)}>
+                <Button onClick={() => handleSumProduct(product)}>
                   <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                 </Button>
 
@@ -48,22 +48,22 @@ export default function ShoppingCart() {
                   onClick={() =>
                     `${
                       product.quantity !== 1
-                        ? minProduct(product)
-                        : deleteProduct(product)
+                        ? handleMinProduct(product)
+                        : handleRemoveFromCart(product)
                     }`
                   }
                 >
                   <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
                 </Button>
 
-                <Button onClick={() => deleteProduct(product)}>
+                <Button onClick={() => handleRemoveFromCart(product)}>
                   <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
                 </Button>
               </Box>
             ))}
             <Typography>Total: ${total}</Typography>
             <Button>Ir a pago</Button>
-            <Button onClick={() => clearCart()}>Limpiar todo</Button>
+            <Button onClick={() => handleClearCart()}>Limpiar todo</Button>
           </Box>
         ) : (
           <Box>

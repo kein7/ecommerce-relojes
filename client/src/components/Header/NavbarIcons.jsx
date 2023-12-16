@@ -26,7 +26,7 @@ const navbarIcons = [
 ]
 
 export default function NavBarIcons() {
-  const { deleteProduct, countProducts, total, cart } = useCart()
+  const { handleRemoveFromCart, count, total, cart } = useCart()
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', mr: 2 }}>
@@ -40,6 +40,7 @@ export default function NavBarIcons() {
             <Tooltip
               title={
                 <Box name="cart">
+                  {console.log(cart)}
                   {cart.length ? (
                     <Box>
                     {cart.map((product, index) => (
@@ -56,7 +57,7 @@ export default function NavBarIcons() {
                         <Typography sx={{ ml: 1, mr: 1 }}>{'$' + product.price}</Typography>
                         <Button
                           sx={{ height: 1.05, width: 1.05 }}
-                          onClick={() => deleteProduct(product)}
+                          onClick={() => handleRemoveFromCart(product)}
                         >
                           <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
                         </Button>
@@ -85,7 +86,7 @@ export default function NavBarIcons() {
                   key={index}
                   m={20}
                 ></FontAwesomeIcon>
-                <Typography sx={{ ml: 1 }}>{countProducts}</Typography>
+                <Typography sx={{ ml: 1 }}>{count}</Typography>
               </IconButton>
             </Tooltip>
           ) : (
